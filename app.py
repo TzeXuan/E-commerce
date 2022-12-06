@@ -14,6 +14,7 @@ def search():
 
 @app.route('/searchProduct', methods = ['POST'])
 def searchProduct():
+    # productSKU
     productSKUInput = request.form['productSKU']
     print(productSKUInput)
 
@@ -21,8 +22,12 @@ def searchProduct():
     'C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Version 3\\Potential Customer List Output.ipynb',
     parameters={'productSKU': productSKUInput})
     
+    # productQty
     datasetQty = pd.read_excel('productQuantity.xlsx')
     qtyRow = datasetQty[datasetQty['SKU'] == productSKUInput]['Quantity'].values
     print(qtyRow[0])
 
-    return render_template('demand.html', productSKU=productSKUInput, productQty=qtyRow[0])
+    #potentialCustomer
+    datasetCustomer = pd.read_excel('Potential Customer List.xlsx')
+
+    return render_template('demand.html', productSKU=productSKUInput, productQty=qtyRow[0], datasetCustomer=datasetCustomer)

@@ -38,8 +38,19 @@
                     <img src="{{url_for('static', filename='people.png')}}" width="35px">
                     <div class="text-[18px] ml-5">List of Potential Customer : </div>
                 </div>
-                <div class="w-full px-6 py-4 items-center">
-                    <img src="{{url_for('static', filename='potentialCustomerList.png')}}" width="100%">
+                <div class="w-full px-6 py-4 items-center flex-col">
+                    <table class="centered thick-border">
+                        <tr>
+                                <th>Contact Name</th>
+                                <th>Quantity</th>
+                        </tr>
+                            {% for key, value in datasetCustomer.iterrows() %}
+                                <tr>
+                                    <td>{{ value['Contact Name'] }}</td>
+                                    <td>{{ value['Quantity'] }}</td>
+                                </tr>
+                            {% endfor %}
+                    </table>
                 </div>
             </div>   
     </div>
