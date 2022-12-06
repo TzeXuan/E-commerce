@@ -16,8 +16,8 @@ def searchProduct():
     productSKU = request.form['productSKU']
     print(productSKU)
 
-    pm.execute_notebook('C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Untitled Folder\\Potential Customer List.ipynb',
-    'C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Untitled Folder\\Potential Customer List Output.ipynb',
+    pm.execute_notebook('C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Version 3\\Potential Customer List.ipynb',
+    'C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Version 3\\Potential Customer List Output.ipynb',
     parameters={'productSKU': productSKU})
     
     return render_template('demand.html', productSKU=productSKU)
