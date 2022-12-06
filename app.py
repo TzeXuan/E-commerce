@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import papermill as pm
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -13,11 +14,15 @@ def search():
 
 @app.route('/searchProduct', methods = ['POST'])
 def searchProduct():
-    productSKU = request.form['productSKU']
-    print(productSKU)
+    productSKUInput = request.form['productSKU']
+    print(productSKUInput)
 
     pm.execute_notebook('C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Version 3\\Potential Customer List.ipynb',
     'C:\\Users\\xuan4\\Desktop\\FYP\\Dreamshop\\Version 3\\Potential Customer List Output.ipynb',
-    parameters={'productSKU': productSKU})
+    parameters={'productSKU': productSKUInput})
     
-    return render_template('demand.html', productSKU=productSKU)
+    datasetQty = pd.read_excel('productQuantity.xlsx')
+    qtyRow = datasetQty[datasetQty['SKU'] == productSKUInput]['Quantity'].values
+    print(qtyRow[0])
+
+    return render_template('demand.html', productSKU=productSKUInput, productQty=qtyRow[0])
